@@ -58,7 +58,7 @@
 			"identity": {
         			"type": "UserAssigned",
 				"userAssignedIdentities": {
-            				"<imgBuilderId>": {}
+            				"id": "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourcegroups/azureimagebuilderrg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myUserAssignedIdentity"
         			}
    			},
    			"properties": {

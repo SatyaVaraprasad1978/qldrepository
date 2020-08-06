@@ -28,13 +28,6 @@
 				"description": "Location of powershell script to customize your image"
 			}
 		},
-		"SIGImageDefinitionId": {
-			"type": "string",
-			"defaultValue": "",
-			"metadata": {
-				"description": "Id of Shared Image Gallery to distribute image to, eg: /subscriptions/<subscriptionID>/resourceGroups/<SIG resourcegroup>/providers/Microsoft.Compute/galleries/<SIG name>/images/<image definition>"
-			}
-		},
 		"ManagedImageName": {
 			"type": "string",
 			"defaultValue": "AIB-Image",
@@ -49,7 +42,7 @@
 		}
 	},
 	"variables": {
-		"imageTemplateName": "[concat('AIB',uniqueString('deployment().name',parameters('randomGUID')))]",
+		"imageTemplateName": "[concat('AIB',uniqueString('deployment().name',parameters('randomGUID')))]"
 		},
 	"resources": [
 		{
@@ -57,9 +50,23 @@
 			"type": "Microsoft.VirtualMachineImages/imageTemplates",
 			"apiVersion": "2019-05-01-preview",
 			"location": "westus2",
-			"dependsOn": [
-			],
+			"dependsOn": [],
+			"tags": {
+         			"imagebuilderTemplate": "windows10O365",
+        			"userIdentity": "enabled"
+    			},
+   			"identity": {
+        			"type": "UserAssigned",
+				"userAssignedIdentities": {
+            				"<imgBuilderId>": {}
+        			}
+   			},
 			"properties": {
+				"buildTimeoutInMinutes": 200,
+        			"vmProfile": {
+            				"vmSize": "Standard_DS2_v2",
+            				"osDiskSizeGB": 127
+        			},
 				"source": {
 					"type": "PlatformImage",
 					"publisher": "[parameters('publisher')]",

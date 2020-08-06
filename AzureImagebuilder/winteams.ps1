@@ -1,29 +1,27 @@
-# Silently install Microsoft Teams with PowerShell Script.
-# Download Microsoft Teams from https://teams.microsoft.com/downloads
-# This script to install Microsoft Teams 64 bits if you want 32 bits you need to change on line 19, 20 & 27 to path of Teams 32 bits
-# $source = "https://statics.teams.microsoft.com/production-windows-x64/1.1.00.29068/Teams_windows.exe"
-# $destination = "$Installdir\Teams_windows.exe"
-# Start-Process -FilePath "$Installdir\Teams_windows.exe" -ArgumentList "-s"
+#Script to setup golden image with Azure Image Builder
 
 
-# Check if Software is installed already in registry.
-$CheckTeamsReg = Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | where {$_.DisplayName -like "Microsoft Teams*"}
+#Create temp folder
+New-Item -Path 'C:\temp' -ItemType Directory -Force | Out-Null
 
-# If Microsoft Teams is not installed continue with script. If it's istalled already script will exit.
-If ($CheckTeamsReg -eq $null) {
 
-$Installdir = "c:\buildArtifacts"    #path to download Microsoft Teams
-New-Item -Path $Installdir -ItemType directory
+#Install VSCode
+Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?Linkid=852157' -OutFile 'c:\temp\VScode.exe'
+Invoke-Expression -Command 'c:\temp\VScode.exe /verysilent'
 
-# Download the installer from the Microsoft website. Check URL because it can be changed for new versions
-$source = "https://statics.teams.microsoft.com/production-windows-x64/1.1.00.29068/Teams_windows_x64.exe"
-$destination = "$Installdir\Teams_windows_x64.exe"
-Invoke-WebRequest $source -OutFile $destination
+#Start sleep
+Start-Sleep -Seconds 10
 
-# Wait for the installation to finish. Here it is 15 min. to take enough time until source of Microsoft Teams download from internet
-Start-Sleep -s 1800
+#InstallNotepadplusplus
+Invoke-WebRequest -Uri 'https://notepad-plus-plus.org/repository/7.x/7.7.1/npp.7.7.1.Installer.x64.exe' -OutFile 'c:\temp\notepadplusplus.exe'
+Invoke-Expression -Command 'c:\temp\notepadplusplus.exe /S'
 
-# Start the installation of Microsoft Teams
-Start-Process -FilePath "$Installdir\Teams_windows_x64.exe"
+#Start sleep
+Start-Sleep -Seconds 10
 
-}
+#InstallTeamsMachinemode
+New-Item -Path 'HKLM:\SOFTWARE\Citrix\PortICA' -Force | Out-Null
+Invoke-WebRequest -Uri 'https://teams.microsoft.com/downloads/desktopurl?env=production&plat=windows&download=true&managedInstaller=true&arch=x64' -OutFile 'c:\temp\Teams.msi'
+Invoke-Expression -Command 'msiexec /i C:\temp\Teams.msi /quiet /l*v C:\temp\teamsinstall.log ALLUSER=1'
+Start-Sleep -Seconds 30
+New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run32 -Name Teams -PropertyType Binary -Value ([byte[]](0x01,0x00,0x00,0x00,0x1a,0x19,0xc3,0xb9,0x62,0x69,0xd5,0x01)) -Force

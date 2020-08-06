@@ -55,13 +55,7 @@
          			"imagebuilderTemplate": "windows10O365",
         			"userIdentity": "enabled"
     			},
-   			"identity": {
-        			"type": "UserAssigned",
-				"userAssignedIdentities": {
-            				"<imgBuilderId>": {}
-        			}
-   			},
-			"properties": {
+   			"properties": {
 				"buildTimeoutInMinutes": 200,
         			"vmProfile": {
             				"vmSize": "Standard_DS2_v2",

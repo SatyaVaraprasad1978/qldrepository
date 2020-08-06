@@ -88,7 +88,7 @@
 				"distribute": [
 					{
 						"type": "ManagedImage",
-						"imageId": "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/azureimagebuilderrg/providers/Microsoft.Compute/images/wintestimage",
+						"imageId": "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/azureimagebuilderrg/providers/Microsoft.Compute/images/AIB-Image",
 						"location": "westus2",
 						"runOutputName": "AIBimage",
 						"artifactTags": {

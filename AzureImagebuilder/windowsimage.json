@@ -57,7 +57,7 @@
                 "type": "PowerShell",
                 "name": "DownloadInstallTeams",
                 "runElevated": false,
-                "scriptUri": "https://raw.githubusercontent.com/qloudable-oci/qloudable-learning-library/master/oci-library/qloudable/Imagebuilder/winteaminstall.ps1?token=AIXN4ZPPYFNUF4WA7JV45R27FLXUI"
+                "scriptUri": "https://raw.githubusercontent.com/SatyaVaraprasad1978/qldrepository/master/AzureImagebuilder/winteams.ps1"
             },
             {
                 "type": "WindowsUpdate",

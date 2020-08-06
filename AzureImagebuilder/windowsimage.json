@@ -1,0 +1,85 @@
+{
+    "type": "Microsoft.VirtualMachineImages/imageTemplates",
+    "apiVersion": "2019-05-01-preview",
+    "location": "westus2",
+    "dependsOn": [],
+    "tags": {
+        "imagebuilderTemplate": "windows10O365",
+        "userIdentity": "enabled"
+    },
+    "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+            "<imgBuilderId>": {}
+        }
+    },
+    "properties": {
+        "buildTimeoutInMinutes": 200,
+        "vmProfile": {
+            "vmSize": "Standard_DS2_v2",
+            "osDiskSizeGB": 127
+        },
+        "source": {
+            "type": "PlatformImage",
+            "publisher": "microsoftwindowsdesktop",
+            "offer": "office-365",
+            "sku": "20h1-evd-o365pp",
+            "version": "latest"
+        },
+        "customize": [
+            {
+                "type": "PowerShell",
+                "name": "CreateBuildPath",
+                "runElevated": false,
+                "scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/testPsScript.ps1"
+            },
+            {
+                "type": "WindowsRestart",
+                "restartCheckCommand": "echo Azure-Image-Builder-Restarted-the-VM  > c:\\buildArtifacts\\azureImageBuilderRestart.txt",
+                "restartTimeout": "5m"
+            },
+            {
+                "type": "File",
+                "name": "downloadBuildArtifacts",
+                "sourceUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/quickquickstarts/exampleArtifacts/buildArtifacts/index.html",
+                "destination": "c:\\buildArtifacts\\index.html"
+            },
+            {
+                "type": "PowerShell",
+                "name": "settingUpMgmtAgtPath",
+                "runElevated": false,
+                "inline": [
+                    "mkdir c:\\buildActions",
+                    "echo Azure-Image-Builder-Was-Here  > c:\\buildActions\\buildActionsOutput.txt"
+                ]
+            },
+            {
+                "type": "PowerShell",
+                "name": "DownloadInstallTeams",
+                "runElevated": false,
+                "scriptUri": "https://raw.githubusercontent.com/qloudable-oci/qloudable-learning-library/master/oci-library/qloudable/Imagebuilder/winteaminstall.ps1?token=AIXN4ZPPYFNUF4WA7JV45R27FLXUI"
+            },
+            {
+                "type": "WindowsUpdate",
+                "searchCriteria": "IsInstalled=0",
+                "filters": [
+                    "exclude:$_.Title -like '*Preview*'",
+                    "include:$true"
+                ],
+                "updateLimit": 20
+            }
+        ],
+        "distribute": [
+            {
+                "type": "ManagedImage",
+                "imageId": "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/azureimagebuilderrg/providers/Microsoft.Compute/images/winimagetest",
+                "location": "westus2",
+                "runOutputName": "winoutput.json",
+                "artifactTags": {
+                    "source": "azVmImageBuilder",
+                    "baseosimg": "windows10"
+                }
+            }
+        ]
+    }
+}

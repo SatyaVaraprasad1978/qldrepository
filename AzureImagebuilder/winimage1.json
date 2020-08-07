@@ -30,6 +30,7 @@
 		},
 		"ManagedImageName": {
 			"type": "string",
+			"defaultValue": "AIB-Image",
 			"metadata": {
 				"description": "Name of the managed image, it will be created in the AIB resourcegroup"
 			}

@@ -23,7 +23,7 @@
 		},
 		"ScriptUri": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/<yourscripthere>",
+			"defaultValue": "https://raw.githubusercontent.com/SatyaVaraprasad1978/qldrepository/master/AzureImagebuilder/NewFolder/aibscript.ps1",
 			"metadata": {
 				"description": "Location of powershell script to customize your image"
 			}
@@ -54,7 +54,7 @@
 			"identity": {
             "type": "UserAssigned",
                     "userAssignedIdentities": {
-                    "/subscriptions/<subscription>/resourceGroups/<resourcegroup>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aibIdentity": {}       
+                    "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/RG_AzureImageBuilder/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aibIdentity": {}       
                 }
                 },
 			"properties": {

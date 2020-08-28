@@ -8,15 +8,15 @@
 		},
 		"offer": {
 			"type": "string",
-			"defaultValue": "windows-10"
+			"defaultValue": "office-365"
 		},
 		"sku": {
 			"type": "string",
-			"defaultValue": "19h1-evd"
+			"defaultValue": "20h1-evd-o365pp"
 		},
 		"version": {
 			"type": "string",
-			"defaultValue": "18362.1016.2008062123",
+			"defaultValue": "19041.450.2008080726",
 			"metadata": {
 				"description": "Version of the image, can be found with powershell: Get-AzVMImage -Location eastus -PublisherName MicrosoftWindowsDesktop -Offer windows-10 -Skus 19h1-evd"
 			}

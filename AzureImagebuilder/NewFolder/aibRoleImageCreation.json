@@ -16,6 +16,6 @@
   
     ],
     "AssignableScopes": [
-      "/subscriptions/$subscriptionID/resourceGroups/$imageResourceGroup"
+      "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/AIB_ResourceGroup"
     ]
   }

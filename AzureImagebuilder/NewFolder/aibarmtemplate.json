@@ -55,7 +55,7 @@
 			"identity": {
             "type": "UserAssigned",
                     "userAssignedIdentities": {
-                    "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/AIB_ResourceGroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aibIdentity1": {}       
+                    "/subscriptions/b03245be-fce6-4df9-a451-1d0846fae324/resourceGroups/AIB_ResourceGroup1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aibIdentity2": {}       
                 }
                 },
 			"properties": {
